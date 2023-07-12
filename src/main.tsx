@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ListRepos from './pages/ListRepos';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/list-repos",
+    element: <ListRepos />,
   },
 ]);
 
