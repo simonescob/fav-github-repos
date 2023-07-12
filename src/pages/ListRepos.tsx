@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface Item {
   id: number;
@@ -10,7 +10,7 @@ interface ListReposProps {
   items: Item[];
 }
 
-const ListRepos: React.FC<ListReposProps> = ({ items }) => {
+const ListRepos: FC<ListReposProps> = ({ items }) => {
   return (
     <div className="bg-gray-100 p-4">
       <h2 className="text-2xl font-bold mb-4">Item List</h2>

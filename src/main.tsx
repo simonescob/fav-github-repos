@@ -8,7 +8,13 @@ import Register from './pages/Register';
 import ListRepos from './pages/ListRepos';
 import TopBar from './Components/Topbar.js';
 
-const items = [
+interface Item {
+  id: number;
+  name: string;
+  description: string;
+}
+
+const items: Item[] = [
   { id: 1, name: 'Item 1', description: 'Description of Item 1' },
   { id: 2, name: 'Item 2', description: 'Description of Item 2' },
   { id: 3, name: 'Item 3', description: 'Description of Item 3' },
