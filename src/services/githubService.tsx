@@ -3,7 +3,8 @@ import axios from 'axios';
 const GITHUB_API_URL = 'https://api.github.com/graphql';
 // const PERSONAL_ACCESS_TOKEN = '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';
 // const PERSONAL_ACCESS_TOKEN = '9ff94b7ed643aab675d855635de29af1a4b4de8c';
-const PERSONAL_ACCESS_TOKEN = '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';
+// const PERSONAL_ACCESS_TOKEN = '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';
+const PERSONAL_ACCESS_TOKEN = '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';
 
 export const fetchGithubData = async (): Promise<any> => {
 
