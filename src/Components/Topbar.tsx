@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { on } from '../utils/events';
 
 const TopBar: React.FC = () => {
 
@@ -7,6 +8,7 @@ const TopBar: React.FC = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    setIsLoggedIn(false);
   }
 
   useEffect(() => {
@@ -20,26 +22,33 @@ const TopBar: React.FC = () => {
       setIsLoggedIn(true);
     }
 
+    on('authed', () => {
+      setIsLoggedIn(true)
+    })
+
   }, []);
 
   return (
     <nav className="bg-gray-800 p-4">
       <div className="flex justify-between items-center">
         <div>
-          <NavLink
-            to="/list-repos"
-            className="text-gray-300 hover:text-white mr-4"
-          >
-            Item List
-          </NavLink>
-          {isLoggedIn === true && (
-            <NavLink
-              to="/list-repos"
-              className="text-gray-300 hover:text-white"
-            >
-              Favorite List
-            </NavLink>
-          )}
+          {
+            isLoggedIn === true && 
+            <>
+              <NavLink
+                to="/list-repos"
+                className="text-gray-300 hover:text-white mr-4"
+              >
+                Repositories
+              </NavLink>
+              <NavLink
+                to="/list-repos-fav"
+                className="text-gray-300 hover:text-white"
+              >
+                Favorites
+              </NavLink>
+            </>
+          }
         </div>
         <div>
           {isLoggedIn === false ? (
@@ -56,9 +65,14 @@ const TopBar: React.FC = () => {
             </>
           ) :
           (
-            <Link to="/" className="text-gray-300 hover:text-white" onClick={logout}>
-              Logout
-            </Link>
+            <>
+              <Link to="/" className="text-gray-300 hover:text-white mr-4" onClick={logout}>
+                Logout
+              </Link>
+              <Link to="/profile" className="text-gray-300 hover:text-white">
+                Profile
+              </Link>
+            </>
           )
           }
         </div>

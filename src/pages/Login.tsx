@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { trigger } from '../utils/events';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errMsg, setErrMsg] = useState('');
+  
+  const [showPass, setShowPass] = useState(false);
 
   const navigate = useNavigate();
 
@@ -11,6 +15,8 @@ const Login: React.FC = () => {
     e.preventDefault();
     // Perform login logic here
     console.log(`Email: ${email} Password: ${password}`);
+
+    localStorage.removeItem("repositories");
 
     const dataRegister = localStorage.getItem("dataRegister");
 
@@ -22,17 +28,30 @@ const Login: React.FC = () => {
 
       if(data.email === email && data.password === password){
         localStorage.setItem("token", 'code');
+        trigger("authed");
         navigate('/list-repos');
+      }else{
+        setErrMsg('Sorry, the password or email you provided is not valid. Please make sure you enter the correct information and try again.')
+        setTimeout(() => {
+          setErrMsg('');
+        }, 5000);
       }
 
     }
 
   };
 
+  const togglePass = () => {
+    setShowPass(!showPass);
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-md w-full p-6 bg-white rounded shadow">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
+
+        {errMsg !== '' && <div className="text-red-500 mb-4">{errMsg}</div>}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block font-medium">
@@ -52,13 +71,15 @@ const Login: React.FC = () => {
               Password
             </label>
             <input
-              type="password"
+              type={ showPass === false ? "password" : "text" }
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="border border-gray-300 px-4 py-2 rounded w-full"
               required
             />
+
+            <div className="underline cursor-pointer" onClick={togglePass}>Show password</div>
           </div>
           <button
             type="submit"

@@ -5,16 +5,18 @@ const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [age, setAge] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Perform registration logic here
-    console.log(`Name: ${name} Email: ${email} Password: ${password}`);
+    // console.log(`Name: ${name} Email: ${email} Password: ${password}`);
 
     const dataRegister = {
       name,
+      age,
       email,
       password,
     }
@@ -39,6 +41,19 @@ const Register: React.FC = () => {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="border border-gray-300 px-4 py-2 rounded w-full"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="age" className="block font-medium">
+              Age
+            </label>
+            <input
+              type="text"
+              id="age"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
               className="border border-gray-300 px-4 py-2 rounded w-full"
               required
             />
