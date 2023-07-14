@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { fetchGithubData } from '../services/githubService';
 import { Repo } from '../utils/ListRepo';
 import { FaStar } from 'react-icons/fa';
-import { supabase } from '../client'
+// import { supabase } from '../client'
 
 const ListRepos: FC = () => {
 
@@ -67,29 +67,10 @@ const ListRepos: FC = () => {
 
   useEffect(() => {
 
-    // console.log(githubData.provider_token)
-    
-    // checkUser();
-    // // window.addEventListener('hashchange', () => {
-    // //   checkUser();
-    // // });
-
-
     getGithubRepos();
   
   }, []);
 
-  async function checkUser() {
-    const { data } = await supabase.auth.getUser()
-
-    console.log('check user session', data);
-    // setUser(user);
-  }
-
-  // async function signOut() {
-  //   await supabase.auth.signOut();
-  //   setUser(null);
-  // }
 
   return (
     <div className="bg-gray-100 p-4 border flex flex-col items-center">
