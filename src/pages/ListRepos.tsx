@@ -13,8 +13,19 @@ const ListRepos: FC = () => {
   const getGithubRepos = async () => {
 
     console.log('starting getGithubRepos');
+
+    let githubData: any;
+
+    try {
+      
+      githubData = JSON.parse(localStorage.getItem('sb-mlznwaqocckpcdnwgopk-auth-token') || '')
     
-    const githubData: any = JSON.parse(localStorage.getItem('sb-mlznwaqocckpcdnwgopk-auth-token') || '')
+    } catch (error) {
+      
+      window.location.reload();
+
+    }
+    
     
     console.log('githubData works');
 
