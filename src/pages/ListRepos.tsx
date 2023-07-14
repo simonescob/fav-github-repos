@@ -2,13 +2,13 @@ import { FC, useEffect, useState } from 'react';
 import { fetchGithubData } from '../services/githubService';
 import { Repo } from '../utils/ListRepo';
 import { FaStar } from 'react-icons/fa';
-// import { supabase } from '../client'
+import { useNavigate } from 'react-router-dom';
 
 const ListRepos: FC = () => {
-
-  // const [user, setUser] = useState(null);
-
+  
   const [repos, setRepos] = useState<Repo[]>([]);
+  
+  const navigate = useNavigate();
 
   const getGithubRepos = async () => {
 
@@ -66,6 +66,12 @@ const ListRepos: FC = () => {
   }
 
   useEffect(() => {
+
+    let token = localStorage.getItem("token")
+
+    if(!token){
+      navigate('/login')
+    }
 
     getGithubRepos();
   

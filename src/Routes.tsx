@@ -9,7 +9,7 @@ import ListReposFavorites from './pages/ListReposFavorites';
 const routes: RouteProps[] = [
   {
     path: '/',
-    element: <Login />,
+    element: <ListRepos />,
   },
   {
     path: '/login',

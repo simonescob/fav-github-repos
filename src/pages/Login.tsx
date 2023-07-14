@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { trigger } from '../utils/events';
 import { supabase } from '../client'
 
@@ -10,18 +9,18 @@ const Login: React.FC = () => {
   
   const [showPass, setShowPass] = useState(false);
 
-  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Perform login logic here
     console.log(`Email: ${email} Password: ${password}`);
 
-    localStorage.removeItem("repositories");
-
-    const dataRegister = localStorage.getItem("dataRegister");
-
-    if(dataRegister !== null || dataRegister !== undefined){
+    
+    try{
+      
+      localStorage.removeItem("repositories");
+  
+      const dataRegister = localStorage.getItem("dataRegister");
 
       console.log("loggined");
       const data = JSON.parse(dataRegister || '')
@@ -32,7 +31,7 @@ const Login: React.FC = () => {
         localStorage.setItem("token", 'code');
         trigger("authed");
         signInWithGithub();
-        navigate('/list-repos');
+        // navigate('/list-repos');
 
       }else{
       
@@ -42,6 +41,14 @@ const Login: React.FC = () => {
         }, 5000);
       
       }
+
+    }
+    catch{
+
+      setErrMsg('You are not registered, please go to register.')
+      setTimeout(() => {
+        setErrMsg('');
+      }, 5000);
 
     }
 
@@ -63,7 +70,7 @@ const Login: React.FC = () => {
     let token = localStorage.getItem("token")
 
     if(token === 'code'){
-      window.location.href = '/list-repos'
+      window.location.href = '/'
     }
     
   }, [])
