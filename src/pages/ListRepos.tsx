@@ -18,14 +18,15 @@ const ListRepos: FC = () => {
    
     if (repos === null || repos === undefined) {
       
+      console.log('no hay repos');
+      
       const data = await fetchGithubData(githubData.provider_token, githubData.user.user_metadata.user_name);
-      
-      // console.log(data);
       setRepos(data.user.repositories.nodes);
-      
       localStorage.setItem("repositories", JSON.stringify(data.user.repositories.nodes));
       
     }else{
+
+      console.log('no hay repos');
       
       const loadRepos = JSON.parse(repos);
 
