@@ -18,7 +18,7 @@ const ListRepos: FC = () => {
    
     if (repos === null || repos === undefined) {
       
-      const data = await fetchGithubData(githubData.provider_token);
+      const data = await fetchGithubData(githubData.provider_token, githubData.user.user_metadata.user_name);
       
       // console.log(data);
       setRepos(data.user.repositories.nodes);
