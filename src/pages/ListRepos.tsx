@@ -2,18 +2,23 @@ import { FC, useEffect, useState } from 'react';
 import { fetchGithubData } from '../services/githubService';
 import { Repo } from '../utils/ListRepo';
 import { FaStar } from 'react-icons/fa';
+import { supabase } from '../client'
 
 const ListRepos: FC = () => {
+
+  // const [user, setUser] = useState(null);
 
   const [repos, setRepos] = useState<Repo[]>([]);
 
   const getGithubRepos = async () => {
 
+    const githubData: any = JSON.parse(localStorage.getItem('sb-mlznwaqocckpcdnwgopk-auth-token') || '')
+
     const repos = localStorage.getItem("repositories");
    
     if (repos === null || repos === undefined) {
       
-      const data = await fetchGithubData();
+      const data = await fetchGithubData(githubData.provider_token);
       
       // console.log(data);
       setRepos(data.user.repositories.nodes);
@@ -62,9 +67,29 @@ const ListRepos: FC = () => {
 
   useEffect(() => {
 
+    // console.log(githubData.provider_token)
+    
+    // checkUser();
+    // // window.addEventListener('hashchange', () => {
+    // //   checkUser();
+    // // });
+
+
     getGithubRepos();
   
   }, []);
+
+  async function checkUser() {
+    const { data } = await supabase.auth.getUser()
+
+    console.log('check user session', data);
+    // setUser(user);
+  }
+
+  // async function signOut() {
+  //   await supabase.auth.signOut();
+  //   setUser(null);
+  // }
 
   return (
     <div className="bg-gray-100 p-4 border flex flex-col items-center">

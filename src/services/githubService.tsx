@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const GITHUB_API_URL = 'https://api.github.com/graphql';
-const PERSONAL_ACCESS_TOKEN = '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';
+// const PERSONAL_ACCESS_TOKEN = '95c3c4e5954e4c5418cbd768219548faaa4d2740';
 
-export const fetchGithubData = async (): Promise<any> => {
+export const fetchGithubData = async (access_token: string): Promise<any> => {
 
   try {
     const response = await axios.post(GITHUB_API_URL, {
@@ -26,7 +26,7 @@ export const fetchGithubData = async (): Promise<any> => {
       `,
     }, {
       headers: {
-        Authorization: `Bearer ${PERSONAL_ACCESS_TOKEN}`,
+        Authorization: `Bearer ${access_token}`,
       },
     });
 

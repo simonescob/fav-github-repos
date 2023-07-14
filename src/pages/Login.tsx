@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { trigger } from '../utils/events';
+import { supabase } from '../client'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -29,6 +30,8 @@ const Login: React.FC = () => {
       if(data.email === email && data.password === password){
         localStorage.setItem("token", 'code');
         trigger("authed");
+        signInWithGithub();
+
         navigate('/list-repos');
       }else{
         setErrMsg('Sorry, the password or email you provided is not valid. Please make sure you enter the correct information and try again.')
@@ -43,6 +46,13 @@ const Login: React.FC = () => {
 
   const togglePass = () => {
     setShowPass(!showPass);
+  }
+
+  async function signInWithGithub() {
+    const { data } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+    });
+    console.log('data signInWithGithub', data);
   }
 
   return (
