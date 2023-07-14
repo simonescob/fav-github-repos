@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { on } from '../utils/events';
-import { useNavigate } from 'react-router-dom';
 
 const TopBar: React.FC = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    navigate('/login')
+    window.location.href = '/login'
   }
 
   useEffect(() => {
