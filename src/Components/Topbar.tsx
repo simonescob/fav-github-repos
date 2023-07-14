@@ -7,7 +7,7 @@ const TopBar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     setIsLoggedIn(false);
   }
 

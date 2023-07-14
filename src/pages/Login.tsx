@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { trigger } from '../utils/events';
 import { supabase } from '../client'
@@ -28,16 +28,19 @@ const Login: React.FC = () => {
       console.log("data register", data);
 
       if(data.email === email && data.password === password){
+      
         localStorage.setItem("token", 'code');
         trigger("authed");
         signInWithGithub();
-
         navigate('/list-repos');
+
       }else{
+      
         setErrMsg('Sorry, the password or email you provided is not valid. Please make sure you enter the correct information and try again.')
         setTimeout(() => {
           setErrMsg('');
         }, 5000);
+      
       }
 
     }
@@ -54,6 +57,17 @@ const Login: React.FC = () => {
     });
     console.log('data signInWithGithub', data);
   }
+
+  useEffect(() => {
+
+    let token = localStorage.getItem("token")
+
+    if(token === 'code'){
+      navigate('/list-repos');
+    }
+    
+  }, [])
+  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
