@@ -63,7 +63,7 @@ const Login: React.FC = () => {
     let token = localStorage.getItem("token")
 
     if(token === 'code'){
-      navigate('/list-repos');
+      window.location.href = '/list-repos'
     }
     
   }, [])
