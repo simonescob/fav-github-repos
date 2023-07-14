@@ -12,7 +12,11 @@ const ListRepos: FC = () => {
 
   const getGithubRepos = async () => {
 
+    console.log('starting getGithubRepos');
+    
     const githubData: any = JSON.parse(localStorage.getItem('sb-mlznwaqocckpcdnwgopk-auth-token') || '')
+    
+    console.log('githubData works');
 
     const repos = localStorage.getItem("repositories");
    
