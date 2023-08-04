@@ -5,9 +5,9 @@ import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const ListRepos: FC = () => {
-  
+
   const [repos, setRepos] = useState<Repo[]>([]);
-  
+
   const navigate = useNavigate();
 
   const getGithubRepos = async () => {
@@ -17,36 +17,36 @@ const ListRepos: FC = () => {
     let githubData: any;
 
     try {
-      
+
       githubData = JSON.parse(localStorage.getItem('sb-mlznwaqocckpcdnwgopk-auth-token') || '')
-    
+
     } catch (error) {
-      
+
       window.location.reload();
 
     }
-    
-    
+
+
     console.log('githubData works');
 
     const repos = localStorage.getItem("repositories");
-   
+
     if (repos === null || repos === undefined) {
-      
+
       console.log('no hay repos');
-      
+
       const data = await fetchGithubData(githubData.provider_token, githubData.user.user_metadata.user_name);
       setRepos(data.user.repositories.nodes);
       localStorage.setItem("repositories", JSON.stringify(data.user.repositories.nodes));
-      
-    }else{
+
+    } else {
 
       console.log('no hay repos');
-      
+
       const loadRepos = JSON.parse(repos);
 
       setRepos(loadRepos);
-    
+
     }
 
   }
@@ -73,24 +73,24 @@ const ListRepos: FC = () => {
 
   const pipeContentRepo = (content: string) => {
 
-    if(content !== null && content.length > 110){
+    if (content !== null && content.length > 110) {
       return `${content.slice(0, 110)}...`
     }
 
     return content;
-    
+
   }
 
   useEffect(() => {
 
     let token = localStorage.getItem("token")
 
-    if(!token){
+    if (!token) {
       navigate('/login')
     }
 
     getGithubRepos();
-  
+
   }, []);
 
 
@@ -107,9 +107,8 @@ const ListRepos: FC = () => {
                 <h3 className="text-lg font-bold">{repo.name}</h3>
                 <button
                   onClick={() => toggleFavorite(repo.id)}
-                  className={`ml-2 -mt-1 focus:outline-none ${
-                    repo.fav === true ? 'text-yellow-400' : 'text-gray-500'
-                  }`}
+                  className={`ml-2 -mt-1 focus:outline-none ${repo.fav === true ? 'text-yellow-400' : 'text-gray-500'
+                    }`}
                 >
                   <FaStar size={20} className="inline" />
                 </button>
